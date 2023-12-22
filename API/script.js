@@ -16,22 +16,34 @@ const fetchApi = (value) => {
 
 const keys = ['name', 'status', 'species', 'gender', 'origin', 'image', 'episode']
 const buildResult = (result) => {
-    const newobj = {};
-    keys.map((key) => document.getElementById(key))
+
+    return keys.map((key) => document.getElementById(key))
     .map((element) => {
-        element.checked && (newobj[element.name] = result[element.name]);
+        if(element.checked && typeof(result[element.name]) != 'object'){
+            const newElement = document.createElement('p');
+            newElement.innerHTML =`${element.name} : ${result[element.name]}`;
+            content.appendChild(newElement);
+        }
     });
 
-    return newobj;
-
-};
+}
 
 btnGo.addEventListener('click', async (event) =>{
     event.preventDefault();
+    if(characterId.value === ''){
+        return content.innerHTML = "O Id do personagem está vazia.";
+    }
     const result = await fetchApi(characterId.value);
-    // content.textContent = `${JSON.stringify(result.name, undefined, 2)}`;
-    content.textContent = `${JSON.stringify(buildResult(result), undefined, 2)}`;
-    // console.log(buildResult(result));
-    image.src =  `${result.image}`;
+    if(content.firstChild === null){
+        image.src =  `${result.image}`;
+        buildResult(result)
+        // content.textContent = `${JSON.stringify(buildResult(result), undefined, 2)}`;
+    }else{
+        content.innerHTML = '';
+        image.src =  `${result.image}`;
+        buildResult(result)
+    }
+
+
 });
 
