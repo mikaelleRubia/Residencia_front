@@ -30,20 +30,22 @@ export class FirstComponentComponent {
       this.criarElementos(this.dadosCarregados);
      
     }
-
   }
   criarElementos(result: any): void {
     if (this.content && this.content.nativeElement) {
       const tamanhoLista = result[this.categoriaEscolhida].length;
-  
+      let clicado = 0;
       for (let i = 0; i < tamanhoLista; i++) {
         const newElement = document.createElement('button');
         this.renderer.setAttribute(newElement, 'id', `meuBotao`);
         newElement.innerHTML = `${result[this.categoriaEscolhida][i].Name} `;
         this.styleNewBotoes(newElement);
         this.content.nativeElement.appendChild(newElement);
+
+
         newElement.addEventListener('click', () => {
-          this.criarElementosBotao(result[this.categoriaEscolhida][i]);
+          clicado ++;
+          this.criarElementosBotao(result[this.categoriaEscolhida][i], clicado);
         });
       }
     } else {
@@ -51,14 +53,21 @@ export class FirstComponentComponent {
     }
   }
 
-  criarElementosBotao(result: any): void {
+  criarElementosBotao(result: any, clicado: number): void {
     if (this.content && this.content.nativeElement) {
+      if(clicado > 1){
+        const elementosAntigos = this.content.nativeElement.querySelectorAll('.meuBotaoFilho') as NodeListOf<HTMLElement>;
+        elementosAntigos.forEach((elementoAntigo: HTMLElement) => {
+          this.content.nativeElement.removeChild(elementoAntigo);
+        });
+    }
+  
       for (const propriedade in result) {
         if (result.hasOwnProperty(propriedade)) {
           const newElementBotao = document.createElement('button');
           this.renderer.setAttribute(newElementBotao, 'id', `meuBotaoFilho_${propriedade}`);
+          this.renderer.addClass(newElementBotao, 'meuBotaoFilho'); 
           newElementBotao.innerHTML = `${propriedade}`;
-          // newElementBotao.innerHTML = `${propriedade}: ${result[propriedade]}`;
           this.styleNewBotoesFilhos(newElementBotao);
           this.content.nativeElement.appendChild(newElementBotao);
         }
@@ -81,35 +90,35 @@ export class FirstComponentComponent {
       });
   }
 
-ngOnInit() {
+  ngOnInit() {
 
-  this.exibirMensagem()
-    .then((dados) => {
-      this.dadosCarregados = dados;
-    })
-    .catch((error) => {
-      this.erroAoCarregarDados = error.message;
-    }); 
-}
+    this.exibirMensagem()
+      .then((dados) => { 
+        this.dadosCarregados = dados;
+      })
+      .catch((error) => {
+        this.erroAoCarregarDados = error.message;
+      }); 
+  }
 
-styleNewBotoes(newElement : any): void{
-  newElement.style.backgroundColor = '#007bff';
-  newElement.style.padding = '10px';
-  newElement.style.color = '#ffffff';
-  newElement.style.marginTop = '10px';
-  newElement.style.border = '2px solid #60335d';
-  newElement.style.borderRadius = '5px';
-  newElement.style.display = 'block'; 
-}
+  styleNewBotoes(newElement : any): void{
+    newElement.style.backgroundColor = '#007bff';
+    newElement.style.padding = '10px';
+    newElement.style.color = '#ffffff';
+    newElement.style.marginTop = '10px';
+    newElement.style.border = '2px solid #60335d';
+    newElement.style.borderRadius = '5px';
+    newElement.style.display = 'block'; 
+  }
 
-styleNewBotoesFilhos(newElement : any): void{
-  newElement.style.backgroundColor = '#3CFAD8';
-  newElement.style.padding = '10px';
-  newElement.style.color = '#000000';
-  newElement.style.marginTop = '10px';
-  newElement.style.border = '2px solid #60335d';
-  newElement.style.borderRadius = '5px';
-  newElement.style.display = 'block'; 
-}
+  styleNewBotoesFilhos(newElement : any): void{
+    newElement.style.backgroundColor = '#3CFAD8';
+    newElement.style.padding = '10px';
+    newElement.style.color = '#000000';
+    newElement.style.marginTop = '10px';
+    newElement.style.border = '2px solid #60335d';
+    newElement.style.borderRadius = '5px';
+    newElement.style.display = 'block'; 
+  }
 
 }
