@@ -1,33 +1,35 @@
-p, h2 {
-    color: blue;
-}
 button {
-    background-color :rgb(237, 134, 96);
+    background-color: rgb(237, 134, 96);
     font-family: 'NomeDaFonte', sans-serif;
-    font-size: 16px; 
-    font-weight: bold; 
+    font-size: 16px;
+    font-weight: bold;
     color: #ffffff;
-    border: 2px solid #60335d; 
-    border-radius: 5px; 
-    padding: 10px 15px
-    
-
+    border: 2px solid #60335d;
+    border-radius: 5px;
+    padding: 10px 15px;
 }
-#btn-categoria, #btn-aviao, #btn-barcos, #btn-carros{
-    background-color :rgb(179, 118, 235);
+
+#btn-categoria, #btn-aviao, #btn-barcos, #btn-carros {
+    background-color: rgb(179, 118, 235);
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 5px 10px;
     margin-top: 20px;
-
 }
 
-.container{
+.container {
     display: grid;
-    grid-template-columns: 1fr 1fr ;
-    grid-template-rows: 100px 100px;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
     grid-gap: 10px;
-    grid-auto-rows: 100px;
+    grid-auto-rows: 50px;
+}
 
-} 
+
+.buttons-column {
+    flex: 1;
+  }
+  
+.info-column-span {
+    flex: 1;
+  }

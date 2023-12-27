@@ -15,10 +15,18 @@ export class FirstComponentComponent {
   @ViewChild('content', { static: true })
   content!: ElementRef;
 
-  @ViewChild('meuBotao', { static: true })
-  meuBotao!: ElementRef;
+
+  @ViewChild('informacaos', { static: true })
+  informacaos!: ElementRef;
+  
+
+  @ViewChild('Blocoinformacaos', { static: true })
+  Blocoinformacaos!: ElementRef;
 
   constructor(private http: HttpClient, private renderer: Renderer2) {}
+
+  newElementP = document.createElement('p');
+
 
   selecionarCategoria(categoria: string) {
 
@@ -31,6 +39,25 @@ export class FirstComponentComponent {
      
     }
   }
+  Addinformacoes(result: any): void {
+    if (this.Blocoinformacaos && this.Blocoinformacaos.nativeElement) {
+      this.newElementP = document.createElement('p');
+      this.newElementP.innerHTML = `${result}<br>`;
+  
+      const newElementSpan = this.Blocoinformacaos.nativeElement.querySelector('span');
+      if (newElementSpan) {
+        if (!newElementSpan.innerHTML.includes(result)) {
+          newElementSpan.appendChild(this.newElementP);
+          this.styleNewInformacoes(newElementSpan);
+        }
+      } else {
+        const newSpan = document.createElement('span');
+        newSpan.appendChild(this.newElementP);
+        this.Blocoinformacaos.nativeElement.appendChild(newSpan);
+      }
+    }
+  }
+  
   criarElementos(result: any): void {
     if (this.content && this.content.nativeElement) {
       const tamanhoLista = result[this.categoriaEscolhida].length;
@@ -42,10 +69,15 @@ export class FirstComponentComponent {
         this.styleNewBotoes(newElement);
         this.content.nativeElement.appendChild(newElement);
 
-
         newElement.addEventListener('click', () => {
           clicado ++;
-          this.criarElementosBotao(result[this.categoriaEscolhida][i], clicado);
+          if (clicado > 1) {
+            const elementosP = this.Blocoinformacaos.nativeElement.querySelectorAll('span p') as NodeListOf<HTMLElement>;
+            elementosP.forEach((elementoP: HTMLElement) => {
+              elementoP.remove();
+            });
+          }
+          this.criarElementosBotao(result[this.categoriaEscolhida][i], clicado);      
         });
       }
     } else {
@@ -53,35 +85,41 @@ export class FirstComponentComponent {
     }
   }
 
+
   criarElementosBotao(result: any, clicado: number): void {
-    if (this.content && this.content.nativeElement) {
-      if(clicado > 1){
-        const elementosAntigos = this.content.nativeElement.querySelectorAll('.meuBotaoFilho') as NodeListOf<HTMLElement>;
+    if (this.informacaos && this.informacaos.nativeElement) {
+      if (clicado > 1) {
+  
+        const elementosAntigos = this.informacaos.nativeElement.querySelectorAll('.meuBotaoFilho') as NodeListOf<HTMLElement>;
         elementosAntigos.forEach((elementoAntigo: HTMLElement) => {
-          this.content.nativeElement.removeChild(elementoAntigo);
+          this.informacaos.nativeElement.removeChild(elementoAntigo);
         });
-    }
+
+      }
   
       for (const propriedade in result) {
         if (result.hasOwnProperty(propriedade)) {
           const newElementBotao = document.createElement('button');
           this.renderer.setAttribute(newElementBotao, 'id', `meuBotaoFilho_${propriedade}`);
-          this.renderer.addClass(newElementBotao, 'meuBotaoFilho'); 
+          this.renderer.addClass(newElementBotao, 'meuBotaoFilho');
           newElementBotao.innerHTML = `${propriedade}`;
           this.styleNewBotoesFilhos(newElementBotao);
-          this.content.nativeElement.appendChild(newElementBotao);
+          this.informacaos.nativeElement.appendChild(newElementBotao);
+          newElementBotao.addEventListener('click', () => {
+
+            this.Addinformacoes(result[propriedade]);
+          });
         }
       }
     } else {
-      console.error('this.content.nativeElement é nulo ou indefinido.');
+      console.error('this.informacaos.nativeElement é nulo ou indefinido.');
     }
   }
-
+  
 
   exibirMensagem(): Promise<any> {
     return this.http.get('assets/veiculos.json').toPromise()
       .then((veiculos) => {
-        console.log(veiculos);
         return veiculos;
       })
       .catch((error) => {
@@ -100,6 +138,17 @@ export class FirstComponentComponent {
         this.erroAoCarregarDados = error.message;
       }); 
   }
+
+  styleNewInformacoes(newElement: any): void {
+    newElement.style.backgroundColor = 'rgb(216, 100, 106)';
+    newElement.style.padding = '130px';
+    newElement.style.color = '#ffffff';
+    newElement.style.marginTop = '20px';
+    newElement.style.border = '2px solid #60335d';
+    newElement.style.borderRadius = '5px';
+    newElement.style.display = 'block'; 
+
+}
 
   styleNewBotoes(newElement : any): void{
     newElement.style.backgroundColor = '#007bff';
