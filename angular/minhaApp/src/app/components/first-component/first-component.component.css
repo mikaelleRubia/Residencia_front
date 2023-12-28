@@ -7,6 +7,8 @@ button {
     border: 2px solid #60335d;
     border-radius: 5px;
     padding: 10px 15px;
+    margin-top: 10px;
+
 }
 
 #btn-categoria, #btn-aviao, #btn-barcos, #btn-carros {
@@ -15,12 +17,17 @@ button {
     flex-direction: column;
     gap: 10px;
     padding: 5px 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
+#btn-go2{
+    background-color: rgb(237, 134, 96);
+    padding: 10px 15px;
+    margin-top: 5px;
 
+}
 .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+    grid-template-columns: repeat(5, 1fr); /* 4 colunas */
     grid-gap: 10px;
     grid-auto-rows: 50px;
 }
