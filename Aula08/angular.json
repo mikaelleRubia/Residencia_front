@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "minhaApp": {
+    "Aula08": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/minha-app",
+            "outputPath": "dist/aula08",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "minhaApp:build:production"
+              "buildTarget": "Aula08:build:production"
             },
             "development": {
-              "buildTarget": "minhaApp:build:development"
+              "buildTarget": "Aula08:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "minhaApp:build"
+            "buildTarget": "Aula08:build"
           }
         },
         "test": {
@@ -103,6 +103,6 @@
     }
   },
   "cli": {
-    "analytics": "bab21fbc-8980-49c4-ad07-8319b26604db"
+    "analytics": false
   }
 }
