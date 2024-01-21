@@ -1,4 +1,4 @@
-import { Component , ElementRef, ViewChild} from '@angular/core';
+import { Component , ElementRef, ViewChild, Input} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./search-value.component.css']
 })
 export class SearchValueComponent {
+  @Input() title_project:string= ""
   title:string = '';
   extract:string = '';
   valueSearch:string = '';
