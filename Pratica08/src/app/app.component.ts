@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Pratica08';
-  name_title: string = "Consultando a wiki API"
+  name_title: string = "consultando a wiki api"
 }

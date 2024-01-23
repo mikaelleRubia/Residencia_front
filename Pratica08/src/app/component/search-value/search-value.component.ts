@@ -11,6 +11,7 @@ export class SearchValueComponent {
   title:string = '';
   extract:string = '';
   valueSearch:string = '';
+  today =  new Date();
 
 
   @ViewChild('informacaos', { static: true })
@@ -19,7 +20,7 @@ export class SearchValueComponent {
   constructor(private http: HttpClient) {}
 
   onsendPages(valor: any) {
-    console.log('Deu certo:', valor);
+    // console.log('Deu certo:', valor);
     this.valueSearch = valor;
     const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
     const apiUrl = 'https://pt.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&titles='+valor;
@@ -38,7 +39,7 @@ export class SearchValueComponent {
  
         });
 
-        console.log('Extract foiii:', this.extract);
+        console.log('Extract:', this.extract);
         this.criarElementosBotao(valor, this.extract);
 
        return dados

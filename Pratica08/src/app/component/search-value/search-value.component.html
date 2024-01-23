@@ -1,4 +1,5 @@
-<h1>{{title_project}}</h1>
+<h1>{{title_project | titlecase }}</h1>
+<p> {{today | date: "fullDate"}}</p>
 <div class = "class">
     <app-send-value (sendValue)="onsendPages($event)" ></app-send-value>
     <div  #informacaos class="info-column" #infoColumn>
