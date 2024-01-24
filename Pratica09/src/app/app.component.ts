@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Pratica09';
-  name_title: string = "consultando a wiki api"
+
 
   constructor(private rotas:Router, private rotaAtiva: ActivatedRoute){
     
