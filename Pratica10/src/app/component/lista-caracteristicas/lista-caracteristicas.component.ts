@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class ListaCaracteristicasComponent {
 
+  listaCaracter(lista: any){
+      for(let i = 0; i <lista.length; i++){
+    console.log("this.NomesCaracterSelecionado --->"+lista[i]);
+    
+    }
+  }
+
 }

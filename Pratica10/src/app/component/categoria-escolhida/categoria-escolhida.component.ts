@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-categoria-escolhida',
@@ -6,9 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './categoria-escolhida.component.css'
 })
 export class CategoriaEscolhidaComponent {
+  @Output() sendListaCaracter: EventEmitter<any> = new EventEmitter();
   NomeObj:string = ''
   ObjectNome_: any = ''
   NomesCaracter:string []= []
+  NomesCaracterSelecionado:string []= []
   backgroundColor_ = "";
   padding_ = "";
   color_ = "";
@@ -42,6 +44,13 @@ export class CategoriaEscolhidaComponent {
 
   buscaValor(valor: any){
     console.log("buscaValor"+ this.ObjectNome_[0][valor]);
+    this.NomesCaracterSelecionado.push(this.ObjectNome_[0][valor])
+    this.sendListaCaracter.emit(this.NomesCaracterSelecionado);
+    // for(let i = 0; i < this.NomesCaracterSelecionado.length; i++){
+    //   console.log("this.NomesCaracterSelecionado --->"+ this.NomesCaracterSelecionado[i]);
+      
+    // }
+
   }
 
   
