@@ -19,9 +19,8 @@ export class ArquivosJsonComponent {
 
     this.http.get('assets/veiculos.json').subscribe(
       (dados) => {
-        console.log(dados);
+
         this.dadosCarregados = dados;
-        console.log(">" + this.dadosCarregados);
         this.sendValue.emit(this.dadosCarregados);
       },
       (error) => {
