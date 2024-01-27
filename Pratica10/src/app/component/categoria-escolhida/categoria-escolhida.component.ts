@@ -22,7 +22,6 @@ export class CategoriaEscolhidaComponent {
   textAlign_ = "";
 
   buscaPorNome(Nome: any){
-    console.log('Nome'+ Nome)
     this.NomeObj = Nome;
     this.backgroundColor_ = "rgb(237, 134, 96)";
     this.padding_ = "10px 10px";
@@ -43,7 +42,6 @@ export class CategoriaEscolhidaComponent {
   }
 
   buscaValor(valor: any){
-    console.log("buscaValor"+ this.ObjectNome_[0][valor]);
     this.NomesCaracterSelecionado.push(this.ObjectNome_[0][valor])
     this.sendListaCaracter.emit(this.NomesCaracterSelecionado);
     // for(let i = 0; i < this.NomesCaracterSelecionado.length; i++){

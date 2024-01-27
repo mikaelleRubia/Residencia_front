@@ -22,7 +22,6 @@ export class CaracteristicasCategoriaComponent {
   textAlign_ = "";
 
   onSendCaracter(categoria: string) {
-    console.log('Categoria:', categoria);
     this.titutoTop = categoria;
     this.backgroundColor_ = "rgb(237, 134, 96)";
     this.padding_ = "10px 12px";
@@ -36,10 +35,7 @@ export class CaracteristicasCategoriaComponent {
   }
 
   onSendCategoria(resultadoBusca: any) {
-
     this.resultadoCaracter = resultadoBusca;
-    console.log('Resultado :', this.resultadoCaracter);
-
   }
 
   handleNomeClick(Nome: any){

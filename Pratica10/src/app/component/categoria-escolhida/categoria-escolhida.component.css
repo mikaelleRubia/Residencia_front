@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 4 colunas */
     margin-right: 10px;
-    width: 50%; /* Ou a largura desejada */
+    width: 70%; /* Ou a largura desejada */
     height: 50%; /* Ou a altura desejada */
 
 

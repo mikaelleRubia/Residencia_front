@@ -9,6 +9,7 @@ import { CategoriaEscolhidaComponent } from './component/categoria-escolhida/cat
 import { CaracteristicasCategoriaComponent } from './component/caracteristicas-categoria/caracteristicas-categoria.component';
 import { ListaCaracteristicasComponent } from './component/lista-caracteristicas/lista-caracteristicas.component';
 import { ArquivosJsonComponent } from './component/arquivos-json/arquivos-json.component';
+import { SalvarArquilojsonComponent } from './component/salvar-arquilojson/salvar-arquilojson.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ArquivosJsonComponent } from './component/arquivos-json/arquivos-json.c
     CategoriaEscolhidaComponent,
     CaracteristicasCategoriaComponent,
     ListaCaracteristicasComponent,
-    ArquivosJsonComponent
+    ArquivosJsonComponent,
+    SalvarArquilojsonComponent
   ],
   imports: [
     BrowserModule,

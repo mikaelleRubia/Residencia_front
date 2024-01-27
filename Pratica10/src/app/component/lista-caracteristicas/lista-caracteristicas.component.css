@@ -1,0 +1,24 @@
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 colunas */
+    margin-right: 10px;
+    width: 50%; /* Ou a largura desejada */
+    height: 50%; /* Ou a altura desejada */
+    /* margin-left: 10px; */
+
+
+}
+.buttons-column-lista-caracter {
+    grid-column: 3 / span 1; /* Inicia na coluna 2 e ocupa 1 coluna */
+    padding: '5px, 5px';
+    margin: auto;
+
+} 
+.buscaInput {
+    grid-column: 4 / span 1;
+    width: 100%; /* Defina a largura desejada */
+    height: 30px; /* Defina a altura desejada */
+    margin: auto;
+    margin-left: 10px;
+}

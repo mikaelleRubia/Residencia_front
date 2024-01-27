@@ -8,10 +8,10 @@
         </h1>
 
         <div #buscaCaracter *ngFor="let categoria of NomesCaracter">
-            <p [ngStyle]="{'display': 'inline-block','flex-direction': 'column', 'gap': '8px','padding': '10px 5px','margin-top': '5px'
+            <span [ngStyle]="{'display': 'inline-block','flex-direction': 'column', 'gap': '8px','padding': '10px 5px','margin-top': '5px'
             ,'background-color': '#007bff', 'cursor': 'pointer', 'border-radius': '5px', 'width': 'fit-content'}" (click) = "buscaValor(categoria)">
-                {{ categoria }}
-            </p>
+                {{ categoria}}
+        </span>
         </div>
     </div>
 </div>
