@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { VeiculosService } from '../../veiculos.service'
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular
 export class BuscaVeiculosComponent {
   @Output() sendCategoria: EventEmitter<any> = new EventEmitter();
   @Output() sendCaracter: EventEmitter<any> = new EventEmitter();
-  @ViewChild('buscaCategoria') buscaCategoria!: ElementRef;
+
   listaBuscaVeiculos: any = "";
   categorias: any = "";
   titutoTop = "";
@@ -25,6 +26,9 @@ export class BuscaVeiculosComponent {
   resultadoBusca: any = "";
   textAlign_ ="";
 
+  constructor( private veiculos: VeiculosService) {}
+
+
   buscarVeiculos(result: any) {
     this.resultadoBusca = result;
 
@@ -38,18 +42,14 @@ export class BuscaVeiculosComponent {
     this.display_ = "block"
     this.marginTop_ = "0"; 
     this.textAlign_ = "center";
-    
+    this.veiculos.retornoJson
     return result;
   }
-
+  
   handleCategoriaClick(categoria: string) {
     this.sendCaracter.emit(categoria);
-    
-
     this.sendCategoria.emit(this.resultadoBusca[categoria]);
 
- 
-  
   }
 
 

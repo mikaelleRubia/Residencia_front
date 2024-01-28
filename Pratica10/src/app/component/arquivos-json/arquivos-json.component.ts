@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { VeiculosService } from '../../veiculos.service';
 
 @Component({
   selector: 'app-arquivos-json',
@@ -8,20 +9,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ArquivosJsonComponent {
   @Output() sendValue: EventEmitter<any> = new EventEmitter();
-  @ViewChild('buscaInput') buscaInput!: ElementRef;
 
   dadosCarregados: any = "";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private veiculos: VeiculosService) {}
 
   handleClick() {
-    const valorDoInput = this.buscaInput.nativeElement.value;
 
     this.http.get('assets/veiculos.json').subscribe(
       (dados) => {
-
-        this.dadosCarregados = dados;
-        this.sendValue.emit(this.dadosCarregados);
+        this.veiculos.retornoJson = dados;
+        this.sendValue.emit(this.veiculos.retornoJson);
       },
       (error) => {
         console.error('Erro ao carregar dados:', error);
