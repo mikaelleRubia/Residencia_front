@@ -1,10 +1,10 @@
 
 .container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 4 colunas */
+    grid-template-columns: repeat(5, 1fr);
     margin-right: 10px;
-    width: 70%; /* Ou a largura desejada */
-    height: 50%; /* Ou a altura desejada */
+    width: 70%; 
+    height: 50%; 
 
 
 }
