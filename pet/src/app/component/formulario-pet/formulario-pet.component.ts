@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {  FormGroup, FormBuilder, Validators,} from '@angular/forms';
 import {DataBaseService } from '../../data-base.service';
+import { Subject } from 'rxjs';
+
 
 
 @Component({
@@ -8,7 +10,9 @@ import {DataBaseService } from '../../data-base.service';
   templateUrl: './formulario-pet.component.html',
   styleUrl: './formulario-pet.component.css'
 })
-export class FormularioPetComponent {
+export class FormularioPetComponent  implements OnInit, OnDestroy {
+  private readonly destroy$:Subject<void> = new Subject();
+
   clientePetForm!: FormGroup;
   fOnFocus:Boolean = false;
   fonChange:Boolean = false;
@@ -29,13 +33,18 @@ export class FormularioPetComponent {
       historico: ['', Validators.required],
       peso: ['', Validators.required]
     });
-    this.petshotService.getPetshot();
-    console.log(">>!!!!",this.nomeTutor)
+
   }
+
 
   onSubmit() {
     console.log(this.clientePetForm.value);
     this.petshotService.addPetShop(this.clientePetForm.value);
-    this.clientePetForm.reset();
+
+  }
+
+  ngOnDestroy(): void{
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

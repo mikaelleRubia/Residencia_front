@@ -2,6 +2,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { WeatherDatas } from '../../../../models/interfaces/weatherDatas';
 import { WeatherService } from './../../services/weather.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-weather-home',
@@ -12,6 +13,7 @@ export class WeatherHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$:Subject<void> = new Subject();
   InitialCityName = "Ilhéus";
   weatherDatas !: WeatherDatas;
+  searchIcon = faMagnifyingGlass
 
   constructor(private weatherService: WeatherService){}
   ngOnInit(): void {
@@ -20,18 +22,22 @@ export class WeatherHomeComponent implements OnInit, OnDestroy {
 
   getWeatherDatas(cityNome: string): void{
     this.weatherService
-    .getWeatherDatas(cityNome)
+    .getWeatherDatasService(cityNome)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(response)=>{
         console.log(response);
         response && (this.weatherDatas = response)
-        console.log(this.weatherDatas.main.temp_max);
-
 
       },
       error:(error)=>console.log(error)
     })
+  }
+
+  onSubmit(): void{
+    this.getWeatherDatas(this.InitialCityName);
+    this.InitialCityName = '';
+
   }
 
   //evita vazamento de memoria
