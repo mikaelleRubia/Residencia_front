@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { SignupUserRequest } from '../../models/interfaces/User/SignupUserRequest';
@@ -6,13 +6,17 @@ import { AuthResquest } from '../../models/interfaces/Auth/AuthRequest';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy{
+  private readonly destroy$:Subject<void> = new Subject();
+  email: string='';
+  password: string='';
 
   loginCard = true;
   loginAuth = false;
@@ -23,48 +27,127 @@ export class HomeComponent {
   });
 
   signupForm = this.formBuilder.group({
-    name:['', Validators.required],
     email:['', Validators.required],
     password:['', Validators.required]
   });
-  constructor(private formBuilder: FormBuilder,
-    private userService: UserService,
-    private cookService: CookieService,
-    private messageService: MessageService,
-    private router: Router
-    ){}
+  constructor(private formBuilder: FormBuilder,private userService: UserService,private cookService: CookieService,private messageService: MessageService,private router: Router){}
 
-  onSubmitLoginForm(): void {
-    console.log("dados do formulario", this.loginForm.value);
-    if(this.loginForm.value && this.loginForm.valid){
-      this.userService.authUser(this.loginForm.value as AuthResquest)
-      .subscribe({
-        next:(response)=>{
-          if(response){
-            this.cookService.set('USER_INFOR', response?.token);
-            this.loginForm.reset();
-            this.router.navigate(['dashboard'])
-            this.messageService.add({
-              severity:'success',
-              summary:'Sucesso',
-              detail: `Bem vindo de volta ${response?.name}!`,
-              life: 2000
-            })
-
-          }
-        },
-        error:(err) =>{
+    loginWitnGoogle() {
+        this.userService.signInWithGoogle().then((response:any)=>{
+          console.log(response.user.displayName);
+          this.cookService.set('USER_INFOR', response?.credential.idToken);
+          this.loginForm.reset();
+          this.router.navigateByUrl('/dashboard')
+          this.messageService.add({
+            severity:'success',
+            summary:'Sucesso',
+            detail: `Bem vindo de volta ${response?.user.displayName}!`,
+            life: 2000
+          })
+        }).catch((error:any)=>{
           this.messageService.add({
             severity:'success',
             summary:'Opa!',
             detail: 'Erro ao login, verifique email ou senha!',
             life: 2000
           })
-          console.log(err)},
-      })
+          console.log(error);
+        });
+
     }
 
-  }
+    onSubmitLoginFire():void {
+      console.log("dados do formulario", this.loginForm.value);
+      if(this.loginForm.value && this.loginForm.valid){
+        this.email = this.loginForm.value.email || '';
+        this.userService.signInWithEmailPassword(this.loginForm.value as AuthResquest).then((response:any)=>{
+          console.log(">>.",response)
+          this.cookService.set('USER_INFOR', response?.user._delegate.accessToken);
+          this.loginForm.reset();
+          this.router.navigateByUrl('/dashboard')
+          this.messageService.add({
+            severity:'success',
+            summary:'Sucesso',
+            detail: `Bem vindo de volta ${this.email}!`,
+            life: 2000
+          })
+        }).catch((error:any)=>{
+          this.messageService.add({
+            severity:'success',
+            summary:'Opa!',
+            detail: 'Erro ao login, verifique email ou senha!',
+            life: 2000
+          })
+          console.log(error);
+        })
+
+      }
+
+    }
+
+    onSubmitSignupFire(): void{
+
+      if(this.signupForm.value && this.signupForm.valid){
+        console.log(">>.")
+
+        this.userService.registerWithEmailPassword(this.signupForm.value as AuthResquest).then((response:any)=>{
+          this.cookService.set('USER_INFOR', response?.user._delegate.accessToken);
+          console.log(">>.",response)
+          this.loginForm.reset();
+          this.loginCard = true;
+          this.messageService.add({
+            severity:'success',
+            summary:'Sucesso',
+            detail: `Usuário criado com sucesso`,
+            life: 2000
+          })
+        }).catch((error:any)=>{
+          this.messageService.add({
+            severity:'success',
+            summary:'Opa!',
+            detail: 'Erro ao criar usuário',
+            life: 2000
+          })
+          console.log(error);
+        })
+
+      }
+
+    }
+
+
+
+  // onSubmitLoginForm(): void {
+  //   console.log("dados do formulario", this.loginForm.value);
+  //   if(this.loginForm.value && this.loginForm.valid){
+  //     this.userService.authUser(this.loginForm.value as AuthResquest)
+  //     .subscribe({
+  //       next:(response)=>{
+  //         if(response){
+  //           this.cookService.set('USER_INFOR', response?.token);
+  //           this.loginForm.reset();
+  //           this.router.navigate(['dashboard'])
+  //           this.messageService.add({
+  //             severity:'success',
+  //             summary:'Sucesso',
+  //             detail: `Bem vindo de volta ${response?.name}!`,
+  //             life: 2000
+  //           })
+
+  //         }
+  //       },
+  //       error:(err) =>{
+  //         this.messageService.add({
+  //           severity:'success',
+  //           summary:'Opa!',
+  //           detail: 'Erro ao login, verifique email ou senha!',
+  //           life: 2000
+  //         })
+  //         console.log(err)},
+  //     })
+  //   }
+
+  // }
   onSubmitSignupForm(): void {
 
     console.log("dados do formulario", this.signupForm.value);
@@ -96,7 +179,12 @@ export class HomeComponent {
           console.log(err)}
       })
     }
+  }
 
+  // "Memory Leak"  evitar vazamento de memória
+  ngOnDestroy(): void{
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

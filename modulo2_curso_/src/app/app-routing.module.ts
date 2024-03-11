@@ -21,6 +21,14 @@ const routes: Routes = [
     ),
     canActivate:[AuthGuardsService]
   },
+  {
+    path:'suino',
+    loadChildren:()=>
+    import('./modules/suinos/suinos.module').then(
+      (m)=>m.SuinosModule
+    ),
+    canActivate:[AuthGuardsService]
+  }
 ];
 
 @NgModule({
