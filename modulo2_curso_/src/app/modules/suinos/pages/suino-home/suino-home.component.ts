@@ -108,8 +108,9 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
               detail: 'Suino removido com sucesso!',
               life: 2500
             });
-            this.getAPISuinoDtas();
           }
+          this.getAPISuinoDtas();
+
         }, error:(err)=>{
           console.log(err);
           this.messageService.add({

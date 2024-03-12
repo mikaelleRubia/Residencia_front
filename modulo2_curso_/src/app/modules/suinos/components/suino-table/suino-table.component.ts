@@ -5,7 +5,7 @@ import {EventActon} from '../../../../models/enum/suino-enum'
 @Component({
   selector: 'app-suino-table',
   templateUrl: './suino-table.component.html',
-  styleUrl: './suino-table.component.css'
+
 })
 export class SuinoTableComponent {
   @Input() suinos: Array<Suino> = [];

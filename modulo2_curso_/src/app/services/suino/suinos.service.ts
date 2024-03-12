@@ -60,6 +60,7 @@ export class SuinosService {
               dataSaida: string;
               status: string;
               sexo: string;
+              historicoPeso: PesoSuino[];
           },suinoId: string ): Observable<any> {
     return this.http.put(this.API_URL+`/${suinoId}.json`, suinoData)
   }
