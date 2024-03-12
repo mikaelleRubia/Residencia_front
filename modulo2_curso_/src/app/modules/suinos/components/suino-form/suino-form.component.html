@@ -1,6 +1,6 @@
 
-<div *ngIf="ref.data.event === addSuinoEvent">
-   <h1>Adicionar Suíno</h1>
+<div *ngIf="ref.data.event.action === addSuinoEvent">
+
 
   <form [formGroup]="addSuinoForm" (ngSubmit)="handleSubmitAddSuino()">
 
@@ -8,8 +8,8 @@
       <input pInputText placeholder="Número do brinco" formControlName="brinco"/>
       <input pInputText placeholder="Brinco do Pai" formControlName="brincoPai"/>
       <input pInputText placeholder="Brinco de Mae" formControlName="brincoMae"/>
-      <input pInputText  placeholder="Data de Nascimento" formControlName="dataNascimento">
-      <input pInputText placeholder="Data de Saída" formControlName="dataSaida">
+      <input pInputText type ="date" placeholder="Data de Nascimento" formControlName="dataNascimento">
+      <input pInputText type ="date" placeholder="Data de Saída" formControlName="dataSaida">
 
       <p-dropdown
       styleClass="w-full"
@@ -27,7 +27,7 @@
       ></p-dropdown>
 
       <input pInputText placeholder="Peso do animal" formControlName="history_peso"/>
-      <input pInputText placeholder="Data do peso" formControlName="history_data_peso">
+      <input pInputText type ="date" placeholder="Data do peso" formControlName="history_data_peso">
       <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
         <p-button
         [disabled]="!addSuinoForm.valid"
@@ -40,8 +40,7 @@
   </form>
 </div>
 
-<div *ngIf="ref.data.event === editSuinoEvent">
-  <h1>Editar Suíno</h1>
+<div *ngIf="ref.data.event.action === editSuinoEvent">
 
  <form [formGroup]="editSuinoForm" (ngSubmit)="handleEditSuino()">
 
@@ -50,7 +49,7 @@
      <input pInputText placeholder="Brinco do Pai" formControlName="brincoPai"/>
      <input pInputText placeholder="Brinco de Mae" formControlName="brincoMae"/>
      <input pInputText type ="date" placeholder="Data de Nascimento" formControlName="dataNascimento">
-     <input pInputText placeholder="Data de Saída" formControlName="dataSaida">
+     <input pInputText type ="date" placeholder="Data de Saída" formControlName="dataSaida">
 
      <p-dropdown
      styleClass="w-full"
@@ -67,8 +66,6 @@
      formControlName="sexo"
      ></p-dropdown>
 
-     <input pInputText placeholder="Peso do animal" formControlName="history_peso"/>
-     <input pInputText placeholder="Data do peso" formControlName="history_data_peso">
      <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
        <p-button
        [disabled]="!editSuinoForm.valid"

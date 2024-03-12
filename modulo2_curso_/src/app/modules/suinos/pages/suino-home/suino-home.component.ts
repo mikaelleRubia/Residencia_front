@@ -62,7 +62,7 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
 
   handleSuinoEvent(event: EventActon ): void{
     if(event){
-      console.log("event", event?.action)
+      console.log("event", event)
       this.ref = this.dialogService.open(SuinoFormComponent,{
         header: event?.action,
         width:'70%',
@@ -70,7 +70,7 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
         baseZIndex: 10000,
         maximizable: true,
         data:{
-          event:event?.action,
+          event:event,
           suinosList: this.suinosList,
         }
       })
@@ -82,7 +82,7 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleDeleteSuino(event: {id: string, brincoSuino: string}): void{
+  handleDeleteSuino(event: {id: string, brincoSuino: number}): void{
     if(event){
       console.log("dados do event delete", event)
       this.confirmationService.confirm({

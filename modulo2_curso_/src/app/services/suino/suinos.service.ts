@@ -60,7 +60,7 @@ export class SuinosService {
               dataSaida: string;
               status: string;
               sexo: string;
-          }): Observable<any> {
-    return this.http.put(this.API_URL+`.json`, suinoData)
+          },suinoId: string ): Observable<any> {
+    return this.http.put(this.API_URL+`/${suinoId}.json`, suinoData)
   }
 }

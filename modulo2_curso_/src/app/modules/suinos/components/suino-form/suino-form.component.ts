@@ -33,12 +33,6 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
   }
 
 
-  public addPesoSuinoForm = this.formBuilder.group({
-
-    history_peso: ['', Validators.required],
-    history_data_peso: ['', Validators.required],
-
-  })
   public addSuinoForm = this.formBuilder.group({
     brinco: ['', Validators.required],
     brincoPai: ['', Validators.required],
@@ -47,7 +41,9 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
     dataSaida: ['', Validators.required],
     status: ['', Validators.required],
     sexo: ['', Validators.required],
-    historicoPeso: []
+    history_peso: ['', Validators.required],
+    history_data_peso: ['', Validators.required],
+
   })
 
   public editSuinoForm = this.formBuilder.group({
@@ -64,6 +60,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
   public addSuinoEvent = SuinoEvent.ADD_SUINO_EVENT;
   public editSuinoEvent = SuinoEvent.EDIT_SUINO_EVENT;
   public historicSuinoEvent = SuinoEvent.HISTORIC_SUINO_EVENT;
+  public brinco_id_get: number =0
 
   constructor(private suinosService: SuinosService,
     private messageService: MessageService,
@@ -74,7 +71,12 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.suinoAction = this.ref.data;
-    console.log("><<<<<<<<<<",this.suinoAction)
+    console.log(">p",this.suinoAction?.suinoData)
+    console.log(">",this.suinoAction?.event?.action);
+    if(this.suinoAction?.event?.action == this.editSuinoEvent){
+      this.getSuinoSelectedDatas(this.suinoAction?.event?.id);
+
+    }
     this.getAllSuinos();
 
   }
@@ -125,8 +127,8 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
         status: this.addSuinoForm.value?.status as string,
         sexo: this.addSuinoForm.value?.sexo as string,
         historicoPeso: [{
-          dataPesagem: this.addPesoSuinoForm.value.history_data_peso as string,
-          pesoKg: Number(this.addPesoSuinoForm.value.history_peso)
+          dataPesagem: this.addSuinoForm.value?.history_data_peso as string,
+          pesoKg: Number(this.addSuinoForm.value?.history_peso)
         }]
       };
 
@@ -155,24 +157,73 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
       }
     }
       this.addSuinoForm.reset();
-      this.addPesoSuinoForm.reset();
     }
 
     handleEditSuino(): void {
-      if(this.editSuinoForm?.value && this.editSuinoForm?.valid){
+      if(this.editSuinoForm?.value && this.editSuinoForm?.valid && this.suinoAction.event.id){
+        const brincoNovo: number = Number(this.editSuinoForm.value?.brinco);
+        console.log("brinco novo", brincoNovo)
+        console.log("brinco novo22", this.brinco_id_get)
+        console.log()
+
+        if (this.brinco_id_get === brincoNovo) {
+            // Se o brinco já existe, exiba uma mensagem de erro
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'O brinco já foi adicionado anteriormente.',
+                life: 3000
+            });
+        } else {
+
+          const requesEditSuino ={
+            brinco: Number(this.editSuinoForm?.value.brinco),
+            brincoPai: Number(this.editSuinoForm?.value.brincoPai),
+            brincoMae: Number(this.editSuinoForm?.value.brincoMae),
+            dataNascimento: this.editSuinoForm?.value.dataNascimento as string,
+            dataSaida: this.editSuinoForm?.value.dataSaida as string,
+            status: this.editSuinoForm?.value.status as string,
+            sexo: this.editSuinoForm?.value.sexo as string,
+          }
+
+          this.suinosService.editSuino(requesEditSuino, this.suinoAction.event.id)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next:()=>{
+              this.messageService.add({
+                severity:'sucess',
+                summary:'Sucesso',
+                detail: 'Suino editado com sucesso',
+                life: 2500
+              })
+              this.editSuinoForm.reset();
+            },error:(err)=>{
+              console.log(err);
+              this.router.navigate(['/dashboard']);
+              this.messageService.add({
+                severity:'error',
+                summary:'Erro',
+                detail: 'Erro ao buscar animais',
+                life: 2500
+              })
+            }
+          });
+        }
       }
     }
 
-    getSuinoSelectedDatas(brinco_suino: number): void{
-      const allSuino = this.suinoAction?.suinoData;
+    getSuinoSelectedDatas(id_suino?: string): void{
+      const allSuino = this.ref.data.suinosList;
 
-      if(allSuino.length > 0){
+      if (this.ref.data.suinosList && this.ref.data.suinosList.length > 0) {
         const suinoFilter = allSuino.filter(
-          (element) => element?.brinco === brinco_suino
+            (element: any) => element.id === id_suino
 
         );
+
         if(suinoFilter){
           this.suinoSelectedDatas = suinoFilter[0];
+          this.brinco_id_get = this.suinoSelectedDatas?.brinco;
           this.editSuinoForm.setValue({
             brinco: this.suinoSelectedDatas?.brinco.toString(),
             brincoPai: this.suinoSelectedDatas?.brincoPai.toString(),

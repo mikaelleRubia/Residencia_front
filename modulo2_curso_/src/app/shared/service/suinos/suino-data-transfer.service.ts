@@ -28,7 +28,6 @@ export class SuinoDataTransferService {
         next: (response) => {
           if (response) {
             this.suinosDatas = response;
-            console.log("><<<<<",this.suinosDatas)
           }
         },
         error: (error) => {
