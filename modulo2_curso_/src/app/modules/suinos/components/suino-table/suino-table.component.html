@@ -194,7 +194,9 @@
           pTooltip="Historico do peso"
           tooltipPosition="top"
           class = "p-button-secondary"
-          (click)="handleSuinoEvent(historicSuinoEvent, suino?.id)"
+          routerLink="/historico"
+          routerLinkActive="exact_route"
+          (click)="handlePesoEvent(historicSuinoEvent, suino)"
           ></button>
 
         <button

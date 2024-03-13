@@ -28,6 +28,14 @@ const routes: Routes = [
       (m)=>m.SuinosModule
     ),
     canActivate:[AuthGuardsService]
+  },
+  {
+    path:'historico',
+    loadChildren:()=>
+    import('./modules/HistoricoPesoSuino/historico-peso.module').then(
+      (m)=>m.HistoricoPesoModule
+    ),
+    canActivate:[AuthGuardsService]
   }
 ];
 

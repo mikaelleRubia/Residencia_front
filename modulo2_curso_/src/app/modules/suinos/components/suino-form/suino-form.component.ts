@@ -71,8 +71,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.suinoAction = this.ref.data;
-    console.log(">p",this.suinoAction?.suinoData)
-    console.log(">",this.suinoAction?.event?.action);
+
     if(this.suinoAction?.event?.action == this.editSuinoEvent){
       this.getSuinoSelectedDatas(this.suinoAction?.event?.id);
 
