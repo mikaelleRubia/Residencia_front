@@ -9,7 +9,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
-  styleUrl: './dashboard-home.component.css'
+
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$:Subject<void> = new Subject();

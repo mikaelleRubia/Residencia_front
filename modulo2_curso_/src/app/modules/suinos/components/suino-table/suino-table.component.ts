@@ -7,7 +7,7 @@ import { SuinoDataTransferService } from '../../../../shared/service/suinos/suin
 @Component({
   selector: 'app-suino-table',
   templateUrl: './suino-table.component.html',
-  styleUrl: './suino-table.component.css'
+
 })
 export class SuinoTableComponent {
   @Input() suinos: Array<Suino> = [];

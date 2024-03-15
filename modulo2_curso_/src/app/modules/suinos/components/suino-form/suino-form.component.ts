@@ -1,3 +1,4 @@
+import { PesoSuino } from './../../../../models/interfaces/Peso/PesoSuino';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,7 +15,6 @@ import { SuinoEvent } from '../../../../models/enum/suino-enum';
 @Component({
   selector: 'app-suino-form',
   templateUrl: './suino-form.component.html',
-  styleUrl: './suino-form.component.css'
 })
 export class SuinoFormComponent implements OnInit, OnDestroy {
 
@@ -27,6 +27,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
   public suinoSelectedDatas!: Suino;
   suinosDatas: Suino [] = []
   suinosListDatas:Suino [] = []
+  historicoPesoGet: PesoSuino[]= []
   public suinoAction!:{
     event: EventActon,
     suinoData: Suino []
@@ -71,7 +72,6 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.suinoAction = this.ref.data;
-
     if(this.suinoAction?.event?.action == this.editSuinoEvent){
       this.getSuinoSelectedDatas(this.suinoAction?.event?.id);
 
@@ -127,7 +127,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
         sexo: this.addSuinoForm.value?.sexo as string,
 
       };
-
+      console.log("Add suino", suinoData)
       this.suinosService.addSuino(suinoData)
       .pipe()
       .subscribe({
@@ -177,6 +177,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
             dataSaida: this.editSuinoForm?.value.dataSaida as string,
             status: this.editSuinoForm?.value.status as string,
             sexo: this.editSuinoForm?.value.sexo as string,
+            historicoPeso: this.historicoPesoGet
           }
 
           this.suinosService.editSuino(requesEditSuino, this.suinoAction.event.id)
@@ -213,10 +214,13 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
             (element: any) => element.id === id_suino
 
         );
+        console.log("Suino filter",suinoFilter)
 
         if(suinoFilter){
           this.suinoSelectedDatas = suinoFilter[0];
+          console.log("Suino",this.suinoSelectedDatas)
           this.brinco_id_get = this.suinoSelectedDatas?.brinco;
+          this.historicoPesoGet = this.suinoSelectedDatas.historicoPeso
           this.editSuinoForm.setValue({
             brinco: this.suinoSelectedDatas?.brinco.toString(),
             brincoPai: this.suinoSelectedDatas?.brincoPai.toString(),
@@ -224,7 +228,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
             dataNascimento: this.suinoSelectedDatas?.dataNascimento,
             dataSaida: this.suinoSelectedDatas?.dataSaida,
             status: this.suinoSelectedDatas?.status,
-            sexo: this.suinoSelectedDatas?.sexo
+            sexo: this.suinoSelectedDatas?.sexo,
 
           })
         }
