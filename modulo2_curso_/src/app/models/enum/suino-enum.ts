@@ -1,3 +1,4 @@
+import { PesoSuino } from "../interfaces/Peso/PesoSuino";
 import { Suino } from "../interfaces/Suino/Suino";
 
 export enum SuinoEvent
@@ -11,7 +12,7 @@ export enum SuinoEvent
 export enum HistoricoEvent
 {
   ADD_PESO_EVENT = 'Adicionar Peso',
-  EDIT_PESO_EVENT = 'Editar Perso',
+  EDIT_PESO_EVENT = 'Editar Peso',
 
 }
 
@@ -22,3 +23,10 @@ export interface EventActon {
 }
 
 export interface EventActionPeso extends Array<[SuinoSelec: Suino]> {}
+
+
+export interface EventActionPeso_ {
+  action: string;
+  suino_id: string;
+
+}

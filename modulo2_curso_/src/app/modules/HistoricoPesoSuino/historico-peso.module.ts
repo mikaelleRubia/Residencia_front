@@ -28,7 +28,6 @@ import { SharedModule } from '../../shared/shared.module';
         HistoricopesoFormComponent,
         HistoricoPesoTableComponent
     ],
-    providers: [DialogService, ConfirmationService],
     imports: [
         CommonModule,
         FormsModule,
@@ -49,6 +48,7 @@ import { SharedModule } from '../../shared/shared.module';
         ConfirmDialogModule,
         TooltipModule,
         SharedModule
-    ]
+    ],
+    providers: [DialogService, ConfirmationService],
 })
 export class HistoricoPesoModule { }

@@ -1,6 +1,8 @@
+import { PesoSuino } from './../../../models/interfaces/Peso/PesoSuino';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, take,map } from 'rxjs';
 import{ Suino} from '../../../models/interfaces/Suino/Suino';
+
 
 
 @Injectable({
@@ -8,7 +10,10 @@ import{ Suino} from '../../../models/interfaces/Suino/Suino';
 })
 export class SuinoDataTransferService {
   public suinoDataEmitter$ = new BehaviorSubject<Suino[] | null>(null);
+  public suinoPesoDataEmitter$ = new BehaviorSubject<PesoSuino[] | null>(null);
   public suinosDatas: Suino[]=[]
+  public pesoSuinoDatas: PesoSuino[] =[]
+  public id_suino: string= ""
 
   constructor() { }
 
@@ -36,4 +41,34 @@ export class SuinoDataTransferService {
       });
       return this.suinosDatas
   }
+  getPesoDatas(id: string) {
+    this.suinoPesoDataEmitter$
+    .pipe(
+      take(1),
+      map((responseData) => responseData?.filter((peso) => peso.id_suino == id))
+    )
+    .subscribe({
+      next: (response) => {
+        if (response) {
+          this.pesoSuinoDatas = response;
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+    return this.pesoSuinoDatas
+  }
+
+  setPesoDatas(pesoSuino: PesoSuino[]): void {
+    if (pesoSuino) {
+
+      this.suinoPesoDataEmitter$.next(pesoSuino);
+      this.getPesoDatas(this.id_suino);
+    }
+  }
+  setIdSuino(id: string): void{
+    this.id_suino = id;
+  }
+
 }

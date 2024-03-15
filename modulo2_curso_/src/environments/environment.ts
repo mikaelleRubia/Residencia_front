@@ -12,5 +12,5 @@ export const environment ={
     measurementId: "G-ZE3NCJPTEG"
   },
 
-  fireDatabase: 'https://cors-anywhere.herokuapp.com/https://pratica15-7a1e3-default-rtdb.firebaseio.com/posts'
+  fireDatabase: 'https://pratica15-7a1e3-default-rtdb.firebaseio.com/'
 }

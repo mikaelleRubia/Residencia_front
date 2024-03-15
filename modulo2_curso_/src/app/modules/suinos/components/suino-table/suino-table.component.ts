@@ -1,8 +1,9 @@
+import { Suino } from './../../../../models/interfaces/Suino/Suino';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Suino } from '../../../../models/interfaces/Suino/Suino';
-import { SuinoEvent } from '../../../../models/enum/suino-enum';
+import { EventActionPeso, EventActionPeso_, SuinoEvent } from '../../../../models/enum/suino-enum';
 import {EventActon} from '../../../../models/enum/suino-enum'
 import { PesoSuino } from '../../../../models/interfaces/Peso/PesoSuino';
+import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
 @Component({
   selector: 'app-suino-table',
   templateUrl: './suino-table.component.html',
@@ -10,10 +11,10 @@ import { PesoSuino } from '../../../../models/interfaces/Peso/PesoSuino';
 })
 export class SuinoTableComponent {
   @Input() suinos: Array<Suino> = [];
-  @Input() pesos: Array<PesoSuino> = [];
+
   @Output() suinosEvent =  new EventEmitter<EventActon>();
   @Output() deletsuinosEvent =  new EventEmitter<any>();
-  @Output() EventActionPeso =  new EventEmitter<any>();
+  @Output() EventActionPeso =  new EventEmitter<EventActionPeso_>();
   public suinoSelected!: Suino;
   public addSuinoEvent = SuinoEvent.ADD_SUINO_EVENT;
   public editSuinoEvent = SuinoEvent.EDIT_SUINO_EVENT;
@@ -28,11 +29,11 @@ export class SuinoTableComponent {
       this.suinosEvent.emit(suinoEventData)
     }
   }
-  handlePesoEvent(action: string, suinoSelec: Suino): void{
-    if(suinoSelec && suinoSelec !== null){
-      const pesoEventData= suinoSelec && suinoSelec !== null ? {action, suinoSelec} : {action}
+  handlePesoEvent(action: string, suino_id: string): void{
+    if(suino_id && suino_id !== ' '){
+      const pesoEventData= {action, suino_id}
       console.log("suinoEventDataPeso", pesoEventData)
-      // EMITIR O VALOR DO EVENTO
+
       this.EventActionPeso.emit(pesoEventData)
     }
   }

@@ -25,11 +25,13 @@ import { SuinoFormComponent } from './components/suino-form/suino-form.component
 
 
 
+
 @NgModule({
   declarations: [
     SuinoHomeComponent,
     SuinoTableComponent,
-    SuinoFormComponent
+    SuinoFormComponent,
+
   ],
   imports: [
     CommonModule,

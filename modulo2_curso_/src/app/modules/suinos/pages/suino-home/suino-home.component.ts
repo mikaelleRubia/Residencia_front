@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Suino } from '../../../../models/interfaces/Suino/Suino';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SuinoFormComponent } from '../../components/suino-form/suino-form.component';
-import {EventActon} from '../../../../models/enum/suino-enum'
+import {EventActionPeso_, EventActon} from '../../../../models/enum/suino-enum'
 @Component({
   selector: 'app-suino-home',
   templateUrl: './suino-home.component.html',
@@ -33,8 +33,10 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
     const suinosLoaded =  this.suinosDtService.getSuinosDatas();
     if(suinosLoaded.length > 0){
       this.suinosList = suinosLoaded;
+
     }else{
       this.getAPISuinoDtas();
+
     }
     console.log("DADOS DOS SUINOS", this.suinosList)
 
@@ -59,10 +61,9 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
       }
     })
   }
-
   handleSuinoEvent(event: EventActon ): void{
     if(event){
-      console.log("event", event)
+
       this.ref = this.dialogService.open(SuinoFormComponent,{
         header: event?.action,
         width:'70%',
@@ -81,10 +82,12 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
 
     }
   }
-
+  handlePesoEvent(event: EventActionPeso_){
+    this.suinosDtService.setIdSuino(event.suino_id)
+  }
   handleDeleteSuino(event: {id: string, brincoSuino: number}): void{
     if(event){
-      console.log("dados do event delete", event)
+
       this.confirmationService.confirm({
         message: `Confirma a exclusão do Suino de numeração: ${event?.brincoSuino}?`,
         header: 'Confirmação de exclusão',
@@ -108,8 +111,8 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
               detail: 'Suino removido com sucesso!',
               life: 2500
             });
-            this.getAPISuinoDtas();
           }
+          this.getAPISuinoDtas();
         }, error:(err)=>{
           console.log(err);
           this.messageService.add({

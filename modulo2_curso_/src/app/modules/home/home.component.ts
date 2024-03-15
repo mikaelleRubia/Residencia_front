@@ -61,7 +61,6 @@ export class HomeComponent implements OnDestroy{
       if(this.loginForm.value && this.loginForm.valid){
         this.email = this.loginForm.value.email || '';
         this.userService.signInWithEmailPassword(this.loginForm.value as AuthResquest).then((response:any)=>{
-          console.log(">>.",response)
           this.cookService.set('USER_INFOR', response?.user._delegate.accessToken);
           this.loginForm.reset();
           this.router.navigateByUrl('/dashboard')
@@ -88,11 +87,10 @@ export class HomeComponent implements OnDestroy{
     onSubmitSignupFire(): void{
 
       if(this.signupForm.value && this.signupForm.valid){
-        console.log(">>.")
 
         this.userService.registerWithEmailPassword(this.signupForm.value as AuthResquest).then((response:any)=>{
           this.cookService.set('USER_INFOR', response?.user._delegate.accessToken);
-          console.log(">>.",response)
+
           this.loginForm.reset();
           this.loginCard = true;
           this.messageService.add({

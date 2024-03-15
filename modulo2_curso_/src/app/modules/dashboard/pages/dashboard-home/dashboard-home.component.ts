@@ -29,7 +29,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     .subscribe({
       next:(response)=>{
         this.suinosList = response;
-        console.log("suicos:" , this.suinosList)
+        console.log("suinos:" , this.suinosList)
         this.suinoDtService.setSuinosDatas(this.suinosList);
         if(this.suinosList.length > 0){
           this.setSuinosChartConfig();

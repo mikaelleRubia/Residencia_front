@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, map} from 'rxjs';
 import { Suino } from '../../models/interfaces/Suino/Suino';
-import { PesoSuino } from '../../models/interfaces/Peso/PesoSuino';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,14 @@ import { PesoSuino } from '../../models/interfaces/Peso/PesoSuino';
 export class SuinosService {
   private API_URL = environment.fireDatabase;
   private JWT_TOKEN = this.cookieService.get('USER_INFO')
-  loadedPetshop: Suino[]=[]
+
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getAllSuinos(): Observable<Suino[]> {
     const JWT_TOKEN = this.cookieService.get('USER_INFO');
     // this.addSuino(this.suinoData)
-    return this.http.get<Suino[]>(this.API_URL+ '.json', {
+    return this.http.get<Suino[]>(this.API_URL+ 'posts.json', {
       headers: { 'Authorization': `Bearer ${JWT_TOKEN}` }
     }).pipe(
       map((responseData) => {
@@ -36,7 +36,7 @@ export class SuinosService {
 
 
   deleteSuino(suinoId: string):Observable<any>{
-    return this.http.delete(this.API_URL+`/${suinoId}.json`);
+    return this.http.delete(this.API_URL+`posts/${suinoId}.json`);
   }
 
   addSuino(suinoData: {
@@ -47,9 +47,8 @@ export class SuinosService {
             dataSaida: string;
             status: string;
             sexo: string;
-            historicoPeso: PesoSuino[];
   }): Observable<any> {
-    return this.http.post(this.API_URL+ '.json', suinoData);
+    return this.http.post(this.API_URL+ 'posts.json', suinoData);
   }
 
   editSuino(suinoData: {
@@ -61,6 +60,6 @@ export class SuinosService {
               status: string;
               sexo: string;
           },suinoId: string ): Observable<any> {
-    return this.http.put(this.API_URL+`/${suinoId}.json`, suinoData)
+    return this.http.put(this.API_URL+`posts/${suinoId}.json`, suinoData)
   }
 }

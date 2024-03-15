@@ -40,7 +40,6 @@
         </div>
         </th>
 
-
         <th pSortableColumn="pesoKg">
           <div class="flex justify-content-between align-items-center">
             <div class="flex justify-content-between align-items-center">
@@ -68,7 +67,7 @@
           label="Adicionar"
           pTooltip="Adicionar produto"
           tooltipPosition="top"
-          (onClick)="handleSuinoEvent(addPesoEvent)"
+          (onClick)="handlePesoEvent(addPesoEvent)"
           >
           </p-button>
         </div>
@@ -76,49 +75,35 @@
 
     </ng-template>
 
-    <ng-template pTemplate="body" let-historico>
-      <tr *ngFor="let peso of Pesos">
+    <ng-template pTemplate="body" let-peso>
+      <tr>
         <td>{{ peso.pesoKg }}</td>
         <td>{{ peso.dataPesagem }}</td>
         <td>
           <div class="flex justify-content-center grap-3 align-content-center align-items-center">
-          <button
-          pButton
-          pRipple
-          icon="pi pi-history"
-          pTooltip="Historico do peso"
-          tooltipPosition="top"
-          class = "p-button-secondary"
-          routerLink="/historico"
-          routerLinkActive="exact_route"
-          ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-secondary"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              (click)="handlePesoEvent(editPesoEvent, peso)"
+            ></button>
 
-        <button
-        pButton
-        pRipple
-        icon="pi pi-pencil"
-        class = "p-button-secondary"
-        pTooltip="Editar"
-        tooltipPosition="top"
-        (click)="handleSuinoEvent(editPesoEvent)"
-        ></button>
-
-        <button
-        pButton
-        pRipple
-        icon="pi pi-trash"
-        class = "p-button-danger"
-        pTooltip="Remover"
-        tooltipPosition="top"
-
-        ></button>
-      </div>
-    </td>
-    </tr>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-danger"
+              pTooltip="Remover"
+              tooltipPosition="top"
+              (click)="handleDeletePeso(peso.id, peso.pesoKg)"
+            ></button>
+          </div>
+        </td>
+      </tr>
     </ng-template>
-
-
-
     </p-table>
   </p-card>
 

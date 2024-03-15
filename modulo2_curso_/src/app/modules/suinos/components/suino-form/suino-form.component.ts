@@ -125,10 +125,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
         dataSaida: this.addSuinoForm.value?.dataSaida as string,
         status: this.addSuinoForm.value?.status as string,
         sexo: this.addSuinoForm.value?.sexo as string,
-        historicoPeso: [{
-          dataPesagem: this.addSuinoForm.value?.history_data_peso as string,
-          pesoKg: Number(this.addSuinoForm.value?.history_peso)
-        }]
+
       };
 
       this.suinosService.addSuino(suinoData)
@@ -161,9 +158,6 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
     handleEditSuino(): void {
       if(this.editSuinoForm?.value && this.editSuinoForm?.valid && this.suinoAction.event.id){
         const brincoNovo: number = Number(this.editSuinoForm.value?.brinco);
-        console.log("brinco novo", brincoNovo)
-        console.log("brinco novo22", this.brinco_id_get)
-        console.log()
 
         if (this.brinco_id_get === brincoNovo) {
             // Se o brinco já existe, exiba uma mensagem de erro
