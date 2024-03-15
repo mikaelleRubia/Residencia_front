@@ -42,8 +42,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
     dataSaida: ['', Validators.required],
     status: ['', Validators.required],
     sexo: ['', Validators.required],
-    history_peso: ['', Validators.required],
-    history_data_peso: ['', Validators.required],
+
 
   })
 
@@ -105,7 +104,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
     if(this.addSuinoForm?.value && this.addSuinoForm?.valid){
       const brincoNovo: number = Number(this.addSuinoForm.value?.brinco);
 
-      // Verifica se o brinco já existe na lista de suínos
+
       const brincoExiste = this.suinosDatas.some(suino => suino.brinco === brincoNovo);
 
       if (brincoExiste) {
