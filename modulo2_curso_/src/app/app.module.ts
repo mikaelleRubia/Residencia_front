@@ -15,12 +15,11 @@ import { MessageService } from 'primeng/api';
 import{AngularFireModule} from '@angular/fire/compat';
 import{AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
-import { HistoricoPesoTableComponent } from './modules/HistoricoPesoSuino/components/historico-peso-table/historico-peso-table.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-
 
   ],
   imports: [

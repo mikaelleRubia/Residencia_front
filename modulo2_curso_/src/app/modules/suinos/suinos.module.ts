@@ -32,6 +32,7 @@ import { SuinoFormComponent } from './components/suino-form/suino-form.component
     SuinoTableComponent,
     SuinoFormComponent,
 
+
   ],
   imports: [
     CommonModule,

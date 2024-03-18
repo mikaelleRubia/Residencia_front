@@ -36,6 +36,14 @@ const routes: Routes = [
       (m)=>m.HistoricoPesoModule
     ),
     canActivate:[AuthGuardsService]
+  },
+  {
+    path:'sessao',
+    loadChildren:()=>
+    import('./modules//sessao/sessao.module').then(
+      (m)=>m.SessaoModule
+    ),
+    canActivate:[AuthGuardsService]
   }
 ];
 

@@ -21,10 +21,14 @@ export interface EventActon {
   id?: string;
 
 }
-
 export interface EventActionPeso extends Array<[SuinoSelec: Suino]> {}
 
+export enum SessaoEvent
+{
+  ADD_SESSAO_EVENT = 'Adicionar Sessão',
+  EDIT_SESSAO_EVENT = 'Editar Sessão',
 
+}
 export interface EventActionPeso_ {
   action: string;
   suino_id: string;

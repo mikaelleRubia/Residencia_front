@@ -56,6 +56,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
 
       const quantidadeTotal = this.suinosList.length;
+
       this.suinosChatsDts ={
         labels:  ['Total de Animais'],
         datasets:[

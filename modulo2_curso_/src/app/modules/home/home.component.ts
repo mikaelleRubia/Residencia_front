@@ -113,39 +113,6 @@ export class HomeComponent implements OnDestroy{
 
     }
 
-
-
-  // onSubmitLoginForm(): void {
-  //   console.log("dados do formulario", this.loginForm.value);
-  //   if(this.loginForm.value && this.loginForm.valid){
-  //     this.userService.authUser(this.loginForm.value as AuthResquest)
-  //     .subscribe({
-  //       next:(response)=>{
-  //         if(response){
-  //           this.cookService.set('USER_INFOR', response?.token);
-  //           this.loginForm.reset();
-  //           this.router.navigate(['dashboard'])
-  //           this.messageService.add({
-  //             severity:'success',
-  //             summary:'Sucesso',
-  //             detail: `Bem vindo de volta ${response?.name}!`,
-  //             life: 2000
-  //           })
-
-  //         }
-  //       },
-  //       error:(err) =>{
-  //         this.messageService.add({
-  //           severity:'success',
-  //           summary:'Opa!',
-  //           detail: 'Erro ao login, verifique email ou senha!',
-  //           life: 2000
-  //         })
-  //         console.log(err)},
-  //     })
-  //   }
-
-  // }
   onSubmitSignupForm(): void {
 
     console.log("dados do formulario", this.signupForm.value);

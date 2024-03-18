@@ -47,7 +47,7 @@ import { SharedModule } from '../../shared/shared.module';
         DropdownModule,
         ConfirmDialogModule,
         TooltipModule,
-        SharedModule
+
     ],
     providers: [DialogService, ConfirmationService],
 })

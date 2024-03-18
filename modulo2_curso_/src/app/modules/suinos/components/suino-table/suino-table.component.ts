@@ -1,9 +1,8 @@
 import { Suino } from './../../../../models/interfaces/Suino/Suino';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EventActionPeso, EventActionPeso_, SuinoEvent } from '../../../../models/enum/suino-enum';
+import { EventActionPeso_, SuinoEvent } from '../../../../models/enum/suino-enum';
 import {EventActon} from '../../../../models/enum/suino-enum'
-import { PesoSuino } from '../../../../models/interfaces/Peso/PesoSuino';
-import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
+
 @Component({
   selector: 'app-suino-table',
   templateUrl: './suino-table.component.html',
