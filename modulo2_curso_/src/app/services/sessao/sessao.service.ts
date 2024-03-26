@@ -35,7 +35,7 @@ export class SessaoService {
 
   addSessao(SessaoData:{
             data: string
-            atividades: string []
+            atividade: string
             animais: string []
             descricao: string}):Observable<any> {
       return this.http.post(this.API_URL+ 'sessao.json', SessaoData);
@@ -43,7 +43,7 @@ export class SessaoService {
 
   editSessao(SessaoData:{
             data: string
-            atividades: string []
+            atividade: string
             animais: string []
             descricao: string}):Observable<any> {
   return this.http.put(this.API_URL+ 'sessao.json', SessaoData);

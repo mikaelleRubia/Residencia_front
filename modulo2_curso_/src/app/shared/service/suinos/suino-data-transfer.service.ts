@@ -14,6 +14,7 @@ export class SuinoDataTransferService {
   public suinosDatas: Suino[]=[]
   public pesoSuinoDatas: PesoSuino[] =[]
   public id_suino: string= ""
+  public listBrinco: Number[] =[]
 
   constructor() { }
 
@@ -21,6 +22,7 @@ export class SuinoDataTransferService {
     if(suinos){
       this.suinoDataEmitter$.next(suinos);
       this.getSuinosDatas()
+      this.listBrinco = this.setListabrinco(suinos)
     }
   }
   getSuinosDatas() {
@@ -41,6 +43,7 @@ export class SuinoDataTransferService {
       });
       return this.suinosDatas
   }
+
   getPesoDatas(id: string) {
     this.suinoPesoDataEmitter$
     .pipe(
@@ -69,6 +72,15 @@ export class SuinoDataTransferService {
   }
   setIdSuino(id: string): void{
     this.id_suino = id;
+  }
+
+  setListabrinco(suinosDatas: any){
+    const list: Number[]=[]
+    for(let suino of  suinosDatas) {
+      list.push(suino.brinco);
+
+    }
+    return list;
   }
 
 }

@@ -40,11 +40,20 @@ const routes: Routes = [
   {
     path:'sessao',
     loadChildren:()=>
-    import('./modules//sessao/sessao.module').then(
+    import('./modules/sessao/sessao.module').then(
       (m)=>m.SessaoModule
     ),
     canActivate:[AuthGuardsService]
+  },
+  {
+    path:'detalhesSessao',
+    loadChildren:()=>
+    import('./modules/DetalhesSessão/detalhes-sessao.module').then(
+      (m)=>m.DetalhesSessaoModule
+    ),
+    canActivate:[AuthGuardsService]
   }
+
 ];
 
 @NgModule({

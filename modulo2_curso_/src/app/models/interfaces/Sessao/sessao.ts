@@ -1,6 +1,7 @@
 export interface Sessao{
-  data: string
-  atividades: string []
+  id: string
+  data_atividade: string
+  atividade: string
   animais: string []
   descricao: string
 }

@@ -18,12 +18,13 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
   private ref!: DynamicDialogRef;
   suinosList: Suino [] = []
 
+
   constructor(private suinosService: SuinosService,
     private messageService: MessageService,
     private suinosDtService :SuinoDataTransferService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
     ){}
 
   ngOnInit(): void {

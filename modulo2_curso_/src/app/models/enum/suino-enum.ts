@@ -27,6 +27,7 @@ export enum SessaoEvent
 {
   ADD_SESSAO_EVENT = 'Adicionar Sessão',
   EDIT_SESSAO_EVENT = 'Editar Sessão',
+  DETALHES_SESSAO_EVENT = 'Detalhes da Sessão'
 
 }
 export interface EventActionPeso_ {

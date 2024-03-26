@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
-import { SessaoEvent } from '../../../../models/enum/suino-enum';
+import { EventActon, SessaoEvent } from '../../../../models/enum/suino-enum';
+import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
 
 @Component({
   selector: 'app-sessao-table',
@@ -8,26 +9,42 @@ import { SessaoEvent } from '../../../../models/enum/suino-enum';
   styleUrl: './sessao-table.component.css'
 })
 export class SessaoTableComponent {
+
   @Input()  Sessao_: Array<Sessao> = []
+
  public SessaoSelected!: Sessao;
 
 
-  @Output() sessaoEvent =  new EventEmitter<any>();
+  @Output() sessaoEvent =  new EventEmitter<EventActon>();
+  @Output() sessaoDetalhesEvent =  new EventEmitter<EventActon>();
   @Output() deleteSessao =  new EventEmitter<any>();
 
   public addSessaovent = SessaoEvent.ADD_SESSAO_EVENT;
   public editSessaovent =SessaoEvent.EDIT_SESSAO_EVENT;
+  public detalhesSessaovent =SessaoEvent.DETALHES_SESSAO_EVENT
+  ngOnInit(): void {
+
+  }
 
   handleSessaoEvent(action: string, id?: string) {
-    if(id && id !== ' '){
-      const pesoEventData= id && id !== '' ? {action, id} : {action}
-      console.log("suinoEventDataSessao", pesoEventData)
+    if(action && action !== ' '){
+      const sessaoEventData= id && id !== '' ? {action, id} : {action}
+      console.log("EventDataSessao", sessaoEventData)
+      this.sessaoEvent.emit(sessaoEventData)
+    }
+  }
 
-      this.sessaoEvent.emit(pesoEventData)
-    }  }
-  handleDeleteSessao(id: string):void {
-    if(id !== '' ){
-      this.deleteSessao.emit({id});
+  handleSessaoDetalhesEvent(action: string, id?: string) {
+    if(action && action !== ' '){
+      const sessaoDetalheEventData= id && id !== '' ? {action, id} : {action}
+      console.log("EventDataSessaoDetralhes", sessaoDetalheEventData)
+      this.sessaoDetalhesEvent.emit(sessaoDetalheEventData)
+    }
+  }
+
+  handleDeleteSessao(id: string, descricao: string ):void {
+    if(id !== '' && descricao !== '' ){
+      this.deleteSessao.emit({id, descricao});
     }  }
 
 }

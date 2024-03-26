@@ -17,20 +17,20 @@
     [rowHover]="true"
     [showCurrentPageReport]="true"
     data="id"
-    currentPageReportTemplate="Mostrando {first} de {last} de pesos"
+    currentPageReportTemplate="Mostrando {first} de {last} de sessões"
     >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="dataPesagem">
+        <th pSortableColumn="data_atividade">
           <div class="flex justify-content-between align-items-center">
             <div class="flex justify-content-between align-items-center">
               Data da Sessão
             </div>
             <div class="flex justify-content-between align-items-center">
-              <p-sortIcon field="data"></p-sortIcon>
+              <p-sortIcon field="data_atividade"></p-sortIcon>
               <p-columnFilter
               type="text"
-              field="dataPesagem"
+              field="data_atividade"
               display="menu"
               matchMode="contains"
               [showMatchModes]="false"
@@ -47,30 +47,10 @@
               Atividade
             </div>
             <div class="flex justify-content-between align-items-center">
-              <p-sortIcon field="atividades"></p-sortIcon>
+              <p-sortIcon field="atividade"></p-sortIcon>
               <p-columnFilter
               type="text"
-              field="pesoKg"
-              display="menu"
-              matchMode="contains"
-              [showMatchModes]="false"
-              [showOperator]="false"
-              [showAddButton]="false"
-              ></p-columnFilter>
-            </div>
-        </div>
-        </th>
-
-        <th pSortableColumn="pesoKg">
-          <div class="flex justify-content-between align-items-center">
-            <div class="flex justify-content-between align-items-center">
-              Animal
-            </div>
-            <div class="flex justify-content-between align-items-center">
-              <p-sortIcon field="animais"></p-sortIcon>
-              <p-columnFilter
-              type="text"
-              field="pesoKg"
+              field="atividade"
               display="menu"
               matchMode="contains"
               [showMatchModes]="false"
@@ -113,15 +93,27 @@
           </p-button>
         </div>
       </tr>
-
     </ng-template>
 
     <ng-template pTemplate="body" let-sessao_>
-      <tr>
-        <td>{{ sessao_.id }}</td>
-        <td>{{ sessao_.data}}</td>
+      <tr >
+        <td>{{ sessao_.data }}</td>
+        <td>{{ sessao_.atividade }}</td>
+        <td>{{ sessao_.descricao }}</td>
         <td>
           <div class="flex justify-content-center grap-3 align-content-center align-items-center">
+            <button
+            pButton
+            pRipple
+            icon="pi pi-history"
+            pTooltip="Detalhes da Sessão"
+            tooltipPosition="top"
+            class = "p-button-secondary"
+            routerLink="/detalhesSessao"
+            routerLinkActive="exact_route"
+            (click)="handleSessaoDetalhesEvent(editSessaovent, sessao_.id)"
+            ></button>
+
             <button
               pButton
               pRipple
@@ -139,11 +131,12 @@
               class="p-button-danger"
               pTooltip="Remover"
               tooltipPosition="top"
-              (click)="handleDeleteSessao(sessao_.id)"
+              (click)="handleDeleteSessao(sessao_.id, sessao_.descricao)"
             ></button>
           </div>
         </td>
       </tr>
+
     </ng-template>
     </p-table>
   </p-card>

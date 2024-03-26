@@ -97,14 +97,14 @@ export class HistoricopesoHomeComponent implements OnInit, OnDestroy {
     if(event){
       this.deletePeso(event.id);
       const id = event.id;
-      // this.confirmationService.confirm({
-      //   message:'Confirma a exclucaão do peso?',
-      //   header:'Confirmação de exclusão',
-      //   icon: 'pi pi-exclamation-triangle',
-      //   acceptLabel: 'Sim',
-      //   rejectLabel:'Não',
-      //   accept:() =>this.deletePeso(id)
-      // })
+      this.confirmationService.confirm({
+        message:'Confirma a exclusão do peso?',
+        header:'Confirmação de exclusão',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Sim',
+        rejectLabel:'Não',
+        accept:() =>this.deletePeso(id)
+      })
     }
   }
   deletePeso(id: string) {
