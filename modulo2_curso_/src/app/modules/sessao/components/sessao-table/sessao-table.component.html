@@ -41,25 +41,6 @@
         </div>
         </th>
 
-        <th pSortableColumn="pesoKg">
-          <div class="flex justify-content-between align-items-center">
-            <div class="flex justify-content-between align-items-center">
-              Atividade
-            </div>
-            <div class="flex justify-content-between align-items-center">
-              <p-sortIcon field="atividade"></p-sortIcon>
-              <p-columnFilter
-              type="text"
-              field="atividade"
-              display="menu"
-              matchMode="contains"
-              [showMatchModes]="false"
-              [showOperator]="false"
-              [showAddButton]="false"
-              ></p-columnFilter>
-            </div>
-        </div>
-        </th>
 
         <th pSortableColumn="pesoKg">
           <div class="flex justify-content-between align-items-center">
@@ -98,7 +79,6 @@
     <ng-template pTemplate="body" let-sessao_>
       <tr >
         <td>{{ sessao_.data }}</td>
-        <td>{{ sessao_.atividade }}</td>
         <td>{{ sessao_.descricao }}</td>
         <td>
           <div class="flex justify-content-center grap-3 align-content-center align-items-center">

@@ -14,3 +14,8 @@ export const environment ={
 
   fireDatabase: 'https://pratica15-7a1e3-default-rtdb.firebaseio.com/'
 }
+
+
+export const atividade_suinos ={
+  vacinas: ['Vacina Raiva', 'Rinite Atrófica', 'Vacina Circovirose', 'Vacina Colibacilose']
+}

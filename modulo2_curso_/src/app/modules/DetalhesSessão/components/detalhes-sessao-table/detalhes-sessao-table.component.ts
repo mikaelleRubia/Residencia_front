@@ -1,6 +1,7 @@
 import { Sessao } from './../../../../models/interfaces/Sessao/sessao';
 import { Component, Input } from '@angular/core';
-
+import { atividade_suinos} from '../../../../../environments/environment'
+import { SessaoDataTransferService } from '../../../../shared/service/sessao/sessao-data-transfer.service';
 
 @Component({
   selector: 'app-detalhes-sessao-table',
@@ -9,16 +10,28 @@ import { Component, Input } from '@angular/core';
 })
 export class DetalhesSessaoTableComponent {
   @Input() Detalhes: Sessao[]=[]
-  public atividades_sessao: string[] = ['Vacina Raiva', 'Rinite Atrófica'];
-  public brinco_animais: string[]=[]
+  public atividades_sessao: string[] = atividade_suinos.vacinas
+  public brinco_animais: Number[]=[]
+  public brincos_atividade: string[] =[]
 
   public SessaoSelected!: Sessao;
 
 
-  constructor(){}
+  constructor(private sessaoDtService :SessaoDataTransferService){}
 
   ngOnInit(): void {
-    console.log("tabela",this.Detalhes)
+
+    this.getContemAtividade(this.Detalhes);
+
+
+    this.brinco_animais = this.sessaoDtService.listBrinco;
+
+  }
+
+  getContemAtividade(obj: Sessao[]=[]) {
+    for (let animal of obj) {
+      console.log("animais_sessao:");
+    }
   }
 
 

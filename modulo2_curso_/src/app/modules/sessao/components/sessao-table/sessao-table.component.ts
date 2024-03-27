@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
 import { EventActon, SessaoEvent } from '../../../../models/enum/suino-enum';
-import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
+
 
 @Component({
   selector: 'app-sessao-table',

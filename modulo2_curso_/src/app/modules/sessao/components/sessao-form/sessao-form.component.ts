@@ -8,6 +8,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { EventActon, SessaoEvent } from '../../../../models/enum/suino-enum';
 import { SessaoDataTransferService } from '../../../../shared/service/sessao/sessao-data-transfer.service';
 import { SessaoService } from '../../../../services/sessao/sessao.service';
+import { atividade_suinos} from '../../../../../environments/environment'
 @Component({
   selector: 'app-sessao-form',
   templateUrl: './sessao-form.component.html',
@@ -20,7 +21,7 @@ throw new Error('Method not implemented.');
 }
 
   private readonly destroy$:Subject<void> = new Subject();
-  public atividades_sessao: string[] = ['Vacina Raiva', 'Rinite Atrófica'];
+  public atividades_sessao: string[] = atividade_suinos.vacinas
   public brinco_animais: Number[]=[]
   public selectedbrincoAnimais: Number = 0
   public selectedAtividade:string = '';
