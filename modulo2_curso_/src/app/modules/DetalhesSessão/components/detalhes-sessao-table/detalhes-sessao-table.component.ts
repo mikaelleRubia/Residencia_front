@@ -10,9 +10,10 @@ import { SessaoDataTransferService } from '../../../../shared/service/sessao/ses
 })
 export class DetalhesSessaoTableComponent {
   @Input() Detalhes: Sessao[]=[]
+  @Input() Detalhes_animal: Number[]=[]
   public atividades_sessao: string[] = atividade_suinos.vacinas
   public brinco_animais: Number[]=[]
-  public brincos_atividade: string[] =[]
+
 
   public SessaoSelected!: Sessao;
 
@@ -20,18 +21,8 @@ export class DetalhesSessaoTableComponent {
   constructor(private sessaoDtService :SessaoDataTransferService){}
 
   ngOnInit(): void {
-
-    this.getContemAtividade(this.Detalhes);
-
-
     this.brinco_animais = this.sessaoDtService.listBrinco;
 
-  }
-
-  getContemAtividade(obj: Sessao[]=[]) {
-    for (let animal of obj) {
-      console.log("animais_sessao:");
-    }
   }
 
 

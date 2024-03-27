@@ -68,17 +68,7 @@
           <tr *ngFor="let brinco of brinco_animais">
             <td>{{ brinco }}</td>
             <td *ngFor="let atividade of atividades_sessao">
-
-              <div *ngIf="(!Detalhes.atividade.includes(atividade))">
-                Não aplicada
-              </div>
-
-              <div *ngFor="let animal of Detalhes.animais">
-                <div *ngIf="Detalhes.atividade.includes(atividade) && animal.includes(brinco)">
-                  X
-                </div> 
-              </div>
-
+            {{Detalhes.atividade.includes(atividade) && Detalhes_animal.includes(brinco) ?'X' : 'Não aplicada'}}
             </td>
           </tr>
 

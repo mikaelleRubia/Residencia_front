@@ -16,6 +16,7 @@ export class DetalhesSessaoHomeComponent implements OnInit, OnDestroy{
   private readonly destroy$:Subject<void> = new Subject();
   sessaoList: Sessao[] =[];
   DetalheSessao:Sessao[] =[] ;
+  DetalheSessao_: number[] = [];
 
   constructor(private messageService: MessageService,
     private sessaoService: SessaoService,
@@ -35,7 +36,10 @@ export class DetalhesSessaoHomeComponent implements OnInit, OnDestroy{
       for (const sessao of sessaoLoaded) {
         if (sessao.id === id_sessao) {
           this.DetalheSessao.push(sessao)
-          console.log("Sessão:", this.DetalheSessao);
+          for (const animal of sessao.animais) {
+            this.DetalheSessao_.push(Number(animal))
+
+          }
         }
       }
     }else{
@@ -52,7 +56,10 @@ export class DetalhesSessaoHomeComponent implements OnInit, OnDestroy{
             for (const sessao of response) {
               if (sessao.id === this.sessaoDataTransferService.id_sessao) {
                 this.DetalheSessao.push(sessao)
-                console.log("Sessão:", this.DetalheSessao);
+                for (const animal of sessao.animais) {
+                  this.DetalheSessao_.push(Number(animal))
+
+                }
                 return;
               }
             }
