@@ -36,17 +36,17 @@ throw new Error('Method not implemented.');
 
 
   public addSessaoForm = this.formBuilder.group({
-    data_atividade: ['', Validators.required],
-    atividade: ['', Validators.required],
-    animais: ['', Validators.required],
-    descricao: ['', Validators.required],
+    data_atividade: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    atividade:['', { validators: [Validators.required], updateOn: 'blur' }],
+    animais: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    descricao: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
   public editSessaoForm = this.formBuilder.group({
-    data_atividade: ['', Validators.required],
-    atividade: ['', Validators.required],
-    animais: ['', Validators.required],
-    descricao: ['', Validators.required],
+    data_atividade: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    atividade: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    animais: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    descricao: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
   public addSessaovent = SessaoEvent.ADD_SESSAO_EVENT;

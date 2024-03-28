@@ -32,14 +32,14 @@ export class HistoricopesoFormComponent implements OnInit, OnDestroy{
   }
 
   public addPesoForm = this.formBuilder.group({
-    dataPesagem: ['', Validators.required],
-    pesoKg: ['', Validators.required],
+    dataPesagem: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    pesoKg: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
 
   public editPesoForm = this.formBuilder.group({
-    dataPesagem: ['', Validators.required],
-    pesoKg: ['', Validators.required],
+    dataPesagem: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    pesoKg: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
   public addPesoEvent = HistoricoEvent.ADD_PESO_EVENT;
